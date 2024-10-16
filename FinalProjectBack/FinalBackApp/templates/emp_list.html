@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<head>
+    <title>
+        EmployeeInfo
+    </title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+        }
+        .container mt-5{
+            margin: 20px 0;
+            position: absolute;
+            top: 30%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 10px;
+        }
+        .even {
+        background-color: #f2f2f2;
+        }
+
+        .odd {
+            background-color: #e6e6e6; 
+        }
+    </style>
+
+</head>
+<body>
+    <div>
+    {% block content %}
+    <div class="container mt-5">
+        <table class="table table-striped">
+            <thead>
+                <tr >
+                    <th scope="col" >Name</th>
+                    <th scope="col">Department</th>
+                    <th scope="col">Salary</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for employee in employees %}
+                    <tr class="{{ row_color }}">
+                        <td>{{ employee.name }}</td>
+                        <td>{{ employee.department }}</td>
+                        <td>{{ employee.salary }}</td>
+                    </tr>
+                {% empty %}
+                    <td>
+                        <span class="font-italic">There Is No Employee On DataBase.</span>
+                    </td>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endblock %}
+    </div>
+
+</body>
+

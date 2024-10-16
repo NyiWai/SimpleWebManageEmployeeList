@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>
+        EmployeeInfo
+    </title>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+
+        html, body {
+        overflow-y: auto;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+            overflow: auto;
+        }
+        .container mt-5{
+            position: fixed;
+            top: 30%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 10px;
+            width: 100%;
+            overflow-y: auto;
+        }
+    </style>
+
+</head>
+<body>
+    <div>
+        {% block content %}
+        <div class="container mt-5">
+            <table class="table table-dark">
+                <thead>
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Department</th>
+                        <th scope="col">Salary</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for employee in employees %}
+                        {% csrf_token %}
+                        <tr>
+                            <td>{{ employee.name }}</td>
+                            <td>{{ employee.department }}</td>
+                            <td>{{ employee.salary }}</td>
+                            <td><button class="btn btn-danger" onclick=location.href="{% url 'delete_employee' employee.id%}">Delete</button></td>
+                        </tr>
+                        {% empty %}
+                            <td >
+                                <span class="font-italic">There Is No Employee On DataBase.</span>
+                            </td>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% endblock %}
+    </div>
+
+</body>
+
