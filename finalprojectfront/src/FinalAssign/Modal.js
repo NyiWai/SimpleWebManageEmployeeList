@@ -19,17 +19,33 @@ export default class CustomModal extends Component {
     };
   }
 
+  // handleChange = (e) => {
+  //   let { name, value } = e.target;
+
+  //   // Handling salary to be a number
+  //   if (name === "salary") {
+  //     value = value.replace(/[^0-9]/g, "");  // Allow only numeric values
+  //   }
+
+  //   const activeItem = { ...this.state.activeItem, [name]: value };
+  //   this.setState({ activeItem });
+  // };
+
   handleChange = (e) => {
     let { name, value } = e.target;
-
-    // Handling salary to be a number
+  
     if (name === "salary") {
-      value = value.replace(/[^0-9]/g, "");  // Allow only numeric values
+      value = value.replace(/[^0-9]/g, ""); 
+      const numericValue = parseInt(value, 10);
+      if (numericValue > 999999999) {
+        value = "999999999";  
+      }
     }
-
+  
     const activeItem = { ...this.state.activeItem, [name]: value };
     this.setState({ activeItem });
   };
+  
 
   render() {
     const { toggle, onSave } = this.props;

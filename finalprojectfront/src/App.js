@@ -157,23 +157,37 @@ class App extends Component {
 
   handleSubmit = (item) => {
     if (item.id) {
+      // PUT request to update an existing employee
       fetch(`http://localhost:8000/api/employees/${item.id}/`, {
         method: 'PUT',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
         },
-        body: JSON.stringify(item)
+        body: JSON.stringify(item),
       })
-        .then(data => {
-          this.refreshList();
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error('Failed to update employee');
+          }
+          return response.json();
         })
-        .catch(error => console.error('Error:', error));
+        .then((data) => {
+          this.refreshList(); // Call your refresh function
+        })
+        .catch((error) => console.error('Error:', error)); // Handle errors
     } else {
+      // POST request to create a new employee
       axios
-        .post("http://127.0.0.1:8000/api/employees/", item)
-        .then((res) => this.refreshList());
+        .post('http://127.0.0.1:8000/api/employees/', item)
+        .then((res) => {
+          this.refreshList(); // Call your refresh function
+        })
+        .catch((error) => {
+          console.error('Error creating employee:', error); // Handle errors
+        });
     }
   };
+  
 
   handleDelete = (item) => {
     axios
